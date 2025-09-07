@@ -4,7 +4,7 @@
 import NoteList from '@/components/NoteList/NoteList';
 import Pagination from '@/components/Pagination/Pagination';
 import SearchBox from '@/components/SearchBox/SearchBox';
-import { fetchNotes, noteHttpResponse } from '@/lib/api';
+
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
@@ -13,6 +13,7 @@ import { useDebouncedCallback } from 'use-debounce';
 import css from './NotesClient.module.css';
 // import Modal from '@/components/Modal/Modal';
 import Link from 'next/link';
+import { fetchNotes, NoteHttpResponse } from '@/lib/api/clientApi';
 
 interface NotesClientProps {
   tag: string | undefined;
@@ -23,7 +24,7 @@ export const NotesClient = ({ tag }: NotesClientProps) => {
   const [noteQuery, setNoteQuery] = useState('');
   // const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { data, isLoading, isSuccess, isError } = useQuery<noteHttpResponse>({
+  const { data, isLoading, isSuccess, isError } = useQuery<NoteHttpResponse>({
     queryKey: ['notes', currentPage, noteQuery, tag],
     queryFn: () => fetchNotes(currentPage, noteQuery, tag),
     placeholderData: keepPreviousData,

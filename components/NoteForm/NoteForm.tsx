@@ -4,9 +4,10 @@ import css from './NoteForm.module.css';
 import type { CreatedNote, NoteTag } from '../../types/note';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
-import { createNote } from '@/lib/api';
+
 import { useRouter } from 'next/navigation';
 import { useNoteDraftStore } from '@/lib/store/noteStore';
+import { createNote } from '@/lib/api/clientApi';
 
 interface NoteFormValues {
   title: string;
@@ -24,8 +25,8 @@ function NoteForm() {
     onError: () => toast.error('Something went wrong'),
     onSuccess: () => (
       clearDraft(),
-      router.push('/notes/filter/All'),
-      queryClient.invalidateQueries({ queryKey: ['notes'] })
+      queryClient.invalidateQueries({ queryKey: ['notes'] }),
+      router.push('/notes/filter/All')
     ),
   });
 

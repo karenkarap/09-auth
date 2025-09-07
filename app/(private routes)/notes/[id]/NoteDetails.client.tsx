@@ -3,8 +3,7 @@
 import { useParams, useRouter } from 'next/navigation';
 import css from './NoteDetails.module.css';
 import { useQuery } from '@tanstack/react-query';
-import { fetchNoteById } from '@/lib/api';
-// import Link from 'next/link';
+import { fetchNoteById } from '@/lib/api/clientApi';
 
 function NoteDetailsClient() {
   const { id } = useParams<{ id: string }>();
@@ -32,9 +31,6 @@ function NoteDetailsClient() {
         </div>
         <p className={css.content}>{note.content}</p>
         <div className={css.wrapper}>
-          {/* <Link className={css.back} href="/notes">
-            Back
-          </Link> */}
           <button className={css.back} onClick={router.back}>
             Back
           </button>

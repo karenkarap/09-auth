@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import css from './Header.module.css';
-import TagsMenu from '../TagsMenu/TagsMenu';
+import AuthNavigation from '../AuthNavigation/AuthNavigation';
 
 function Header() {
   return (
@@ -10,11 +10,9 @@ function Header() {
       </Link>
       <nav aria-label="Main Navigation">
         <ul className={css.navigation}>
+          <AuthNavigation />
           <li>
             <Link href="/">Home</Link>
-          </li>
-          <li>
-            <TagsMenu />
           </li>
         </ul>
       </nav>
