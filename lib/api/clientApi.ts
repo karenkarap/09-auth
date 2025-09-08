@@ -67,11 +67,10 @@ export const deleteNote = async (id: string): Promise<Note> => {
 };
 
 export interface updateMeProps {
-  email: string;
   username: string;
 }
 
 export const updateMe = async (payload: updateMeProps) => {
-  const response = await nextServer.patch<Note>('/users/me', payload);
+  const response = await nextServer.patch<User>('/users/me', payload);
   return response.data;
 };

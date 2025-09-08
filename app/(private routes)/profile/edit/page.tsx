@@ -5,6 +5,7 @@ import css from './EditProfilePage.module.css';
 import { getMe, updateMe } from '@/lib/api/clientApi';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useAuthStore } from '@/lib/store/authStore';
 
 const EditProfile = () => {
   const router = useRouter();
@@ -12,6 +13,7 @@ const EditProfile = () => {
   const [userEmail, setUserEmail] = useState('');
   const [photoUrl, setPhotoUrl] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const setUser = useAuthStore((state) => state.setUser);
 
   useEffect(() => {
     getMe().then((user) => {
@@ -29,8 +31,13 @@ const EditProfile = () => {
   const handleSaveUser = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     await updateMe({
-      email: userEmail,
       username: userName,
+    });
+
+    setUser({
+      username: userName,
+      email: userEmail,
+      avatar: photoUrl,
     });
     router.push('/profile');
   };
